@@ -35,8 +35,8 @@ const Services = () => {
       <section className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Mission and Commitment to You</h2>
-            <p className="text-xl text-gray-600 mb-8">Guiding Your Journey, Wherever Life Takes You</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Mission and Commitment</h2>
+            <p className="text-xl text-gray-600 mb-8"><i>Guiding Your Journey, Wherever Life Takes You</i></p>
           </div>
           <div className="prose prose-lg mx-auto text-gray-600">
             <p className="mb-6">

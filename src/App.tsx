@@ -11,6 +11,7 @@ import Footer from './components/Footer';
 import About from './components/About';
 import ServicesPage from './components/ServicesPage';
 import FAQ from './components/FAQ';
+import Contact from './components/Contact'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/faq" element={<FAQ />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
         <WhatsAppChat />
         <Footer />

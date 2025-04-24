@@ -1,5 +1,12 @@
-import React from 'react';
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from 'lucide-react';
+import React from "react";
+import {
+  Facebook,
+  Instagram,
+  Linkedin,
+  Mail,
+  MapPin,
+  Phone,
+} from "lucide-react";
 
 const Footer = () => {
   return (
@@ -9,38 +16,61 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold mb-4">Clenlinks Global</h3>
             <p className="text-gray-400">
-              Your trusted partner in international education and travel services.
+              Your trusted partner in international education and travel
+              services.
             </p>
           </div>
-          
+
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li><a href="/about" className="text-gray-400 hover:text-white">About Us</a></li>
-              <li><a href="/services" className="text-gray-400 hover:text-white">Services</a></li>
-              <li><a href="/faq" className="text-gray-400 hover:text-white">FAQs</a></li>
-              <li><a href="/contact" className="text-gray-400 hover:text-white">Contact</a></li>
+              <li>
+                <a href="/about" className="text-gray-400 hover:text-white">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="/services" className="text-gray-400 hover:text-white">
+                  Services
+                </a>
+              </li>
+              <li>
+                <a href="/faq" className="text-gray-400 hover:text-white">
+                  FAQs
+                </a>
+              </li>
+              <li>
+                <a href="/contact" className="text-gray-400 hover:text-white">
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-lg font-semibold mb-4">Contact Info</h4>
             <ul className="space-y-2">
               <li className="flex items-center">
                 <Phone className="h-5 w-5 mr-2" />
-                <span className="text-gray-400">+1 234 567 8900</span>
+                <span className="text-gray-400">+2348032653799, +2348028931394</span>
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2" />
-                <span className="text-gray-400">info@clenlinks.com</span>
+                <span className="text-gray-400">
+                  clenlinksglobal@gmail.com, clenlinkstudy@gmail.com
+                </span>
               </li>
               <li className="flex items-center">
                 <MapPin className="h-5 w-5 mr-2" />
-                <span className="text-gray-400">123 Business Avenue, Suite 100</span>
+                <span className="text-gray-400">
+                  281 Herbert Macaulay Wy, Central Business Dis, Abuja 900103,
+                  Federal Capital Territory 281 Herbert Macaulay Wy, Central
+                  Business Dis, Abuja 900103, Federal Capital Territory.
+                </span>
               </li>
             </ul>
           </div>
-          
+
           <div>
             <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
@@ -56,10 +86,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
-        
+
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} Clenlinks Global Services. All rights reserved.
+            © {new Date().getFullYear()} Clenlinks Global Services. All rights
+            reserved.
           </p>
         </div>
       </div>
