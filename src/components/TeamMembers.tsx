@@ -72,7 +72,7 @@ const TeamMembers = () => {
                   <img
                     src={Object.values(member.image)[0]}
                     alt={member.name}
-                    className="w-full h-64 object-cover"
+                    className="w-full h-64 object-contain hover:scale-105 transition-transform duration-300"
                   />
                 </div>
                 <div className="p-6 text-center">
