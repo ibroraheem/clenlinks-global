@@ -43,7 +43,7 @@ const teamMembers = [
   },
   {
     name: "Mr. Johnson",
-    role: "Student Complaiance and Orientation Officer",
+    role: "Student Compliance and Orientation Officer",
     image: {last}
   }
 ];

@@ -1,13 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
+<<<<<<< HEAD
 import { supabase } from '../../config/supabase';
 
 export default function Login() {
+=======
+
+const Login = () => {
+>>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+<<<<<<< HEAD
   const [resetSent, setResetSent] = useState(false);
   const navigate = useNavigate();
   const { signIn } = useAuth();
@@ -40,6 +46,20 @@ export default function Login() {
       setResetSent(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send reset email');
+=======
+  const { login } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      setError('');
+      setLoading(true);
+      await login(email, password);
+      navigate('/admin/blog');
+    } catch (error) {
+      setError('Failed to sign in. Please check your credentials.');
+>>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
     } finally {
       setLoading(false);
     }
@@ -55,6 +75,7 @@ export default function Login() {
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           {error && (
+<<<<<<< HEAD
             <div className="rounded-md bg-red-50 p-4">
               <div className="text-sm text-red-700">{error}</div>
             </div>
@@ -64,6 +85,10 @@ export default function Login() {
               <div className="text-sm text-green-700">
                 Password reset email sent. Please check your inbox.
               </div>
+=======
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+              <span className="block sm:inline">{error}</span>
+>>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
             </div>
           )}
           <div className="rounded-md shadow-sm -space-y-px">
@@ -101,6 +126,7 @@ export default function Login() {
             </div>
           </div>
 
+<<<<<<< HEAD
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <button
@@ -113,6 +139,8 @@ export default function Login() {
             </div>
           </div>
 
+=======
+>>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
           <div>
             <button
               type="submit"
@@ -126,4 +154,10 @@ export default function Login() {
       </div>
     </div>
   );
+<<<<<<< HEAD
 } 
+=======
+};
+
+export default Login; 
+>>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
