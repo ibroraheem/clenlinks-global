@@ -1,0 +1,28 @@
+{
+  "name": "Clenlinks Global",
+  "short_name": "Clenlinks",
+  "description": "Expert guidance for international education, travel, and relocation services",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d2e4a",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "categories": ["education", "travel", "business"],
+  "lang": "en",
+  "dir": "ltr",
+  "prefer_related_applications": false
+} 

@@ -9,17 +9,20 @@ const slides = [
   {
     image: "https://images.pexels.com/photos/3769138/pexels-photo-3769138.jpeg",
     title: "Welcome to Clenlinks Global",
-    description: "At Clenlinks Global, we are passionate about turning your dreams of studying abroad, traveling, and exploring new opportunities into reality."
+    description: "At Clenlinks Global, we are passionate about turning your dreams of studying abroad, traveling, and exploring new opportunities into reality.",
+    alt: "Students studying in a modern library"
   },
   {
     image: hero1,
     title: "Expert Educational Guidance",
-    description: "As a trusted international educational consultancy, we provide expert guidance and tailored support to students worldwide."
+    description: "As a trusted international educational consultancy, we provide expert guidance and tailored support to students worldwide.",
+    alt: "Professional educational consultant helping students"
   },
   {
     image: "https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg",
     title: "Your Journey Starts Here",
-    description: "Let us help you navigate the path to international education and travel with confidence and ease."
+    description: "Let us help you navigate the path to international education and travel with confidence and ease.",
+    alt: "Students embarking on their international education journey"
   }
 ];
 
@@ -33,11 +36,25 @@ const Hero = () => {
     autoplay: true,
     autoplaySpeed: 5000,
     fade: true,
-    cssEase: "linear"
+    cssEase: "linear",
+    accessibility: true,
+    adaptiveHeight: true,
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false
+        }
+      }
+    ]
   };
 
   return (
-    <div className="relative bg-blue-700 text-white">
+    <section 
+      className="relative bg-blue-700 text-white"
+      aria-label="Hero section"
+    >
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index}>
@@ -45,8 +62,9 @@ const Hero = () => {
               <div className="absolute inset-0">
                 <img
                   src={slide.image}
-                  alt={slide.title}
+                  alt={slide.alt}
                   className="w-full h-full object-cover opacity-20"
+                  loading={index === 0 ? "eager" : "lazy"}
                 />
               </div>
               <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
@@ -70,7 +88,7 @@ const Hero = () => {
           </div>
         ))}
       </Slider>
-    </div>
+    </section>
   );
 };
 
