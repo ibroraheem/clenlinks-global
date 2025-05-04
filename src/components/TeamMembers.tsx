@@ -42,8 +42,8 @@ const teamMembers = [
     image: {ikechukwu}
   },
   {
-    name: "Mr. Last",
-    role: "Operations Manager",
+    name: "Mr. Johnson",
+    role: "Student Complaiance and Orientation Officer",
     image: {last}
   }
 ];
