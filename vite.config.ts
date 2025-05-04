@@ -5,19 +5,19 @@ import react from '@vitejs/plugin-react';
 export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
-    exclude: ['lucide-react'],
+    exclude: ['lucide-react']
   },
   build: {
-    outDir: 'dist',
-    sourcemap: false,
-    minify: 'terser',
     rollupOptions: {
       output: {
         manualChunks: {
           vendor: ['react', 'react-dom', 'react-router-dom'],
-          supabase: ['@supabase/supabase-js'],
-        },
-      },
+          supabase: ['@supabase/supabase-js']
+        }
+      }
     },
-  },
+    sourcemap: false,
+    minify: 'terser',
+    outDir: 'dist'
+  }
 });
