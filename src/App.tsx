@@ -11,32 +11,79 @@ import Footer from './components/Footer';
 import About from './components/About';
 import ServicesPage from './components/ServicesPage';
 import FAQ from './components/FAQ';
-import Contact from './components/Contact'
+import Contact from './components/Contact';
+import Blog from './components/Blog';
+import BlogPostPage from './components/BlogPost';
+import Login from './components/admin/Login';
+import Dashboard from './components/admin/Dashboard';
+import BlogAdmin from './components/admin/BlogAdmin';
+import BlogEditor from './components/admin/BlogEditor';
+import ResetPassword from './components/admin/ResetPassword';
+import { AuthProvider } from './contexts/AuthContext';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen">
-        <Navbar />
-        <Routes>
-          <Route path="/" element={
-            <main className="pt-16">
-              <Hero />
-              <Services />
-              <Stats />
-              <TeamMembers />
-              <Testimonials />
-            </main>
-          } />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<ServicesPage />} />
-          <Route path="/faq" element={<FAQ />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-        <WhatsAppChat />
-        <Footer />
-      </div>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <div className="min-h-screen">
+          <Navbar />
+          <Routes>
+            <Route path="/" element={
+              <main className="pt-16">
+                <Hero />
+                <Services />
+                <Stats />
+                <TeamMembers />
+                <Testimonials />
+              </main>
+            } />
+            <Route path="/about" element={<About />} />
+            <Route path="/services" element={<ServicesPage />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPostPage />} />
+            <Route path="/admin/login" element={<Login />} />
+            <Route path="/admin/reset-password" element={<ResetPassword />} />
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin/blog"
+              element={
+                <PrivateRoute>
+                  <BlogAdmin />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin/blog/new"
+              element={
+                <PrivateRoute>
+                  <BlogEditor />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/admin/blog/edit/:id"
+              element={
+                <PrivateRoute>
+                  <BlogEditor />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+          <WhatsAppChat />
+          <Footer />
+        </div>
+      </Router>
+    </AuthProvider>
   );
 }
 
