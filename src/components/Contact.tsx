@@ -1,29 +1,38 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send } from "lucide-react";
 import emailjs from "@emailjs/browser";
+import { toast } from "react-hot-toast";
 
 const Contact = () => {
-  const form = useRef();
+  const form = useRef<HTMLFormElement>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    emailjs
-      .sendForm(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+    try {
+      if (!form.current) return;
+
+      const result = await emailjs.sendForm(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID!,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
         form.current,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
-      )
-      .then(
-        (result) => {
-          alert("Message sent successfully!");
-          form.current.reset();
-        },
-        (error) => {
-          alert("Failed to send message. Please try again.");
-        }
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
       );
+
+      if (result.status === 200) {
+        toast.success("Message sent successfully! We'll get back to you soon.");
+        form.current.reset();
+      } else {
+        throw new Error("Failed to send message");
+      }
+    } catch (error) {
+      console.error("Error sending email:", error);
+      toast.error("Failed to send message. Please try again or contact us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -67,9 +76,13 @@ const Contact = () => {
                 Call Us
               </h3>
               <p className="text-gray-600">
-                +2348032653799
+                <a href="tel:+2348032653799" className="hover:text-blue-600 transition-colors">
+                  +2348032653799
+                </a>
                 <br />
-                +2348028931394
+                <a href="tel:+2348028931394" className="hover:text-blue-600 transition-colors">
+                  +2348028931394
+                </a>
               </p>
             </div>
 
@@ -81,9 +94,13 @@ const Contact = () => {
                 Email Us
               </h3>
               <p className="text-gray-600">
-                clenlinksglobal@gmail.com
+                <a href="mailto:clenlinksglobal@gmail.com" className="hover:text-blue-600 transition-colors">
+                  clenlinksglobal@gmail.com
+                </a>
                 <br />
-                clenlinkstudy@gmail.com
+                <a href="mailto:clenlinkstudy@gmail.com" className="hover:text-blue-600 transition-colors">
+                  clenlinkstudy@gmail.com
+                </a>
               </p>
             </div>
 
@@ -125,6 +142,8 @@ const Contact = () => {
                       name="user_name"
                       className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
+                      minLength={2}
+                      maxLength={100}
                     />
                   </div>
                   <div>
@@ -137,6 +156,7 @@ const Contact = () => {
                       name="user_email"
                       className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       required
+                      pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                     />
                   </div>
                 </div>
@@ -150,17 +170,20 @@ const Contact = () => {
                     id="phone"
                     name="phone_number"
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    pattern="[0-9+\s-()]{10,}"
+                    placeholder="+234XXXXXXXXXX"
                   />
                 </div>
 
                 <div>
                   <label className="block text-gray-700 mb-2" htmlFor="service">
-                    Service Interested In
+                    Service Interested In *
                   </label>
                   <select
                     id="service"
                     name="service"
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    required
                   >
                     <option value="">Select a service</option>
                     <option value="student-visa">Student Visa</option>
@@ -180,15 +203,20 @@ const Contact = () => {
                     rows="5"
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     required
+                    minLength={10}
+                    maxLength={1000}
                   ></textarea>
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors flex items-center justify-center"
+                  disabled={isSubmitting}
+                  className={`w-full bg-blue-600 text-white py-3 px-6 rounded-lg transition-colors flex items-center justify-center ${
+                    isSubmitting ? 'opacity-75 cursor-not-allowed' : 'hover:bg-blue-700'
+                  }`}
                 >
                   <Send className="w-5 h-5 mr-2" />
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </button>
               </form>
             </div>
@@ -204,6 +232,7 @@ const Contact = () => {
                   className="w-full h-full"
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
+                  title="Our office location"
                 ></iframe>
               </div>
               <p className="mt-4 text-gray-600">
