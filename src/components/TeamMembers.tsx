@@ -6,6 +6,9 @@ import emmanuel from "../../images/emma.jpg";
 import chioma from "../../images/chioma.jpg";
 import juliet from "../../images/juliet.jpg";
 import francis from "../../images/francis.jpg";
+import ebuka from "../../images/ebuka.jpg";
+import ikechukwu from "../../images/ikechukwu.jpg";
+
 const teamMembers = [
   {
     name: "Mr. Emmanuel",
@@ -26,6 +29,16 @@ const teamMembers = [
     name: "Miss. Juliet",
     role: "Ticketing Officer",
     image: {juliet}
+  },
+  {
+    name: "Mr. Ebuka",
+    role: "Operations Manager",
+    image: {ebuka}
+  },
+  {
+    name: "Mr. Ikechukwu",
+    role: "Product Manager",
+    image: {ikechukwu}
   }
 ];
 

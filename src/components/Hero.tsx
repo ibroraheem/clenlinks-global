@@ -2,6 +2,7 @@ import React from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import hero1 from "../../images/hero1.jpg";
 
 const slides = [
   {
@@ -10,7 +11,7 @@ const slides = [
     description: "At Clenlinks Global, we are passionate about turning your dreams of studying abroad, traveling, and exploring new opportunities into reality."
   },
   {
-    image: "https://images.pexels.com/photos/2982449/pexels-photo-2982449.jpeg",
+    image: {hero1},
     title: "Expert Educational Guidance",
     description: "As a trusted international educational consultancy, we provide expert guidance and tailored support to students worldwide."
   },
