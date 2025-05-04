@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import hero1 from "../../images/hero1.jpg";
+import { Link } from 'react-router-dom';
 
 const slides = [
   {
@@ -11,7 +12,7 @@ const slides = [
     description: "At Clenlinks Global, we are passionate about turning your dreams of studying abroad, traveling, and exploring new opportunities into reality."
   },
   {
-    image: {hero1},
+    image: hero1,
     title: "Expert Educational Guidance",
     description: "As a trusted international educational consultancy, we provide expert guidance and tailored support to students worldwide."
   },
@@ -56,9 +57,13 @@ const Hero = () => {
                   <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
                     {slide.description}
                   </p>
-                  <button className="bg-white text-blue-700 px-8 py-3 rounded-md text-lg font-semibold hover:bg-blue-50 transition-colors">
+                  <Link 
+                    to="/contact"
+                    className="bg-white text-blue-700 px-8 py-3 rounded-md text-lg font-semibold hover:bg-blue-50 transition-colors inline-block"
+                    aria-label="Get started with our services"
+                  >
                     Get Started Today
-                  </button>
+                  </Link>
                 </div>
               </div>
             </div>

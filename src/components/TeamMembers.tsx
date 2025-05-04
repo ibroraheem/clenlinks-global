@@ -8,6 +8,7 @@ import juliet from "../../images/juliet.jpg";
 import francis from "../../images/francis.jpg";
 import ebuka from "../../images/ebuka.jpg";
 import ikechukwu from "../../images/ikechukwu.jpg";
+import last from "../../images/new.jpg";
 
 const teamMembers = [
   {
@@ -39,6 +40,11 @@ const teamMembers = [
     name: "Mr. Ikechukwu",
     role: "Product Manager",
     image: {ikechukwu}
+  },
+  {
+    name: "Mr. Last",
+    role: "Operations Manager",
+    image: {last}
   }
 ];
 

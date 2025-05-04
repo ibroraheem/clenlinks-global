@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { Menu, X, Globe2 } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import logo from '../../images/logo.png';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -11,7 +12,7 @@ const Navbar = () => {
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <Globe2 className="h-8 w-8 text-primary" />
+              <img src={logo} alt="Clenlinks Global Logo" className="h-12 w-auto" />
               <span className="ml-2 text-xl font-bold text-primary">Clenlinks Global</span>
             </Link>
           </div>
@@ -23,9 +24,13 @@ const Navbar = () => {
             <Link to="/services" className="text-secondary hover:text-primary">Services</Link>
             <Link to="/faq" className="text-secondary hover:text-primary">FAQ</Link>
             <Link to="/contact" className="text-secondary hover:text-primary">Contact</Link>
-            <button className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light">
+            <Link 
+              to="/contact" 
+              className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light transition-colors"
+              aria-label="Get started with our services"
+            >
               Get Started
-            </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -48,9 +53,13 @@ const Navbar = () => {
               <Link to="/services" className="block px-3 py-2 text-secondary hover:text-primary">Services</Link>
               <Link to="/faq" className="block px-3 py-2 text-secondary hover:text-primary">FAQ</Link>
               <Link to="/contact" className="block px-3 py-2 text-secondary hover:text-primary">Contact</Link>
-              <button className="w-full mt-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light">
+              <Link 
+                to="/contact" 
+                className="w-full mt-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light"
+                aria-label="Get started with our services"
+              >
                 Get Started
-              </button>
+              </Link>
             </div>
           </div>
         )}
