@@ -2,32 +2,30 @@ import React from 'react';
 import Slider from 'react-slick';
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-
+import emmanuel from "../../images/emma.jpg";
+import chioma from "../../images/chioma.jpg";
+import juliet from "../../images/juliet.jpg";
+import francis from "../../images/francis.jpg";
 const teamMembers = [
   {
-    name: "Sarah Johnson",
+    name: "Mr. Emmanuel",
     role: "Chief Executive Officer",
-    image: "https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg"
+    image: {emmanuel}
   },
   {
-    name: "Michael Chen",
-    role: "Head of Education Consulting",
-    image: "https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg"
+    name: "Mr. Francis",
+    role: "Immigration Lawyer",
+    image: {francis}
   },
   {
-    name: "Priya Patel",
-    role: "Senior Visa Consultant",
-    image: "https://images.pexels.com/photos/3796217/pexels-photo-3796217.jpeg"
+    name: "Mrs. Chioma",
+    role: "Study Abroad Expert",
+    image: {chioma}
   },
   {
-    name: "David Williams",
-    role: "Travel Services Director",
-    image: "https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg"
-  },
-  {
-    name: "Emma Thompson",
-    role: "Student Relations Manager",
-    image: "https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg"
+    name: "Miss. Juliet",
+    role: "Ticketing Officer",
+    image: {juliet}
   }
 ];
 
@@ -72,7 +70,7 @@ const TeamMembers = () => {
               <div className="bg-white rounded-lg shadow-md overflow-hidden">
                 <div className="aspect-w-1 aspect-h-1">
                   <img
-                    src={member.image}
+                    src={Object.values(member.image)[0]}
                     alt={member.name}
                     className="w-full h-64 object-cover"
                   />
