@@ -1,67 +1,48 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
-<<<<<<< HEAD
+import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../config/supabase';
-
-export default function Login() {
-=======
+import { toast } from 'react-hot-toast';
 
 const Login = () => {
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-<<<<<<< HEAD
-  const [resetSent, setResetSent] = useState(false);
   const navigate = useNavigate();
   const { signIn } = useAuth();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setLoading(true);
 
     try {
-      await signIn(email, password);
-      navigate('/admin/blog');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to sign in');
+      const { error } = await signIn(email, password);
+      if (error) throw error;
+      
+      toast.success('Logged in successfully!');
+      navigate('/admin');
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to sign in');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleResetPassword = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
+  const handleResetPassword = async () => {
+    if (!email) {
+      toast.error('Please enter your email address');
+      return;
+    }
 
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/admin/reset-password`,
       });
-      if (error) throw error;
-      setResetSent(true);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to send reset email');
-=======
-  const { login } = useAuth();
-  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      setError('');
-      setLoading(true);
-      await login(email, password);
-      navigate('/admin/blog');
-    } catch (error) {
-      setError('Failed to sign in. Please check your credentials.');
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
-    } finally {
-      setLoading(false);
+      if (error) throw error;
+      toast.success('Password reset instructions sent to your email');
+    } catch (error: any) {
+      toast.error(error.message || 'Failed to send reset instructions');
     }
   };
 
@@ -70,27 +51,10 @@ const Login = () => {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Admin Login
+            Sign in to your account
           </h2>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-          {error && (
-<<<<<<< HEAD
-            <div className="rounded-md bg-red-50 p-4">
-              <div className="text-sm text-red-700">{error}</div>
-            </div>
-          )}
-          {resetSent && (
-            <div className="rounded-md bg-green-50 p-4">
-              <div className="text-sm text-green-700">
-                Password reset email sent. Please check your inbox.
-              </div>
-=======
-            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-              <span className="block sm:inline">{error}</span>
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
-            </div>
-          )}
           <div className="rounded-md shadow-sm -space-y-px">
             <div>
               <label htmlFor="email-address" className="sr-only">
@@ -126,7 +90,6 @@ const Login = () => {
             </div>
           </div>
 
-<<<<<<< HEAD
           <div className="flex items-center justify-between">
             <div className="text-sm">
               <button
@@ -139,13 +102,13 @@ const Login = () => {
             </div>
           </div>
 
-=======
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
           <div>
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
+                loading ? 'bg-blue-400' : 'bg-blue-600 hover:bg-blue-700'
+              } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
             >
               {loading ? 'Signing in...' : 'Sign in'}
             </button>
@@ -154,10 +117,6 @@ const Login = () => {
       </div>
     </div>
   );
-<<<<<<< HEAD
-} 
-=======
 };
 
-export default Login; 
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+export default Login;

@@ -1,65 +1,35 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-<<<<<<< HEAD
-import { supabase, BlogPost } from '../config/supabase';
-=======
-import { 
-  collection,
-  addDoc,
-  updateDoc,
-  deleteDoc,
-  doc,
-  getDocs,
-  query,
-  orderBy,
-  Timestamp
-} from 'firebase/firestore';
-import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
-import { db, storage } from '../config/firebase';
-
-export interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  author: string;
-  date: string;
-  readTime: string;
-  image: string;
-  category: string;
-  slug: string;
-}
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+import { supabase } from '../config/supabase';
+import { BlogPost } from '../types/blog';
+import { toast } from 'react-hot-toast';
 
 interface BlogContextType {
   posts: BlogPost[];
   loading: boolean;
   error: string | null;
-<<<<<<< HEAD
-  addPost: (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>) => Promise<void>;
+  createPost: (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>) => Promise<void>;
   updatePost: (id: string, post: Partial<BlogPost>) => Promise<void>;
   deletePost: (id: string) => Promise<void>;
-  getPost: (slug: string) => Promise<BlogPost | null>;
-=======
-  addPost: (post: Omit<BlogPost, 'id' | 'date'>, imageFile?: File) => Promise<void>;
-  updatePost: (id: string, post: Partial<BlogPost>, imageFile?: File) => Promise<void>;
-  deletePost: (id: string) => Promise<void>;
-  getPostBySlug: (slug: string) => BlogPost | undefined;
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+  publishPost: (id: string) => Promise<void>;
+  unpublishPost: (id: string) => Promise<void>;
 }
 
 const BlogContext = createContext<BlogContextType | undefined>(undefined);
 
-<<<<<<< HEAD
-export function BlogProvider({ children }: { children: React.ReactNode }) {
-=======
+export const useBlog = () => {
+  const context = useContext(BlogContext);
+  if (!context) {
+    throw new Error('useBlog must be used within a BlogProvider');
+  }
+  return context;
+};
+
 export const BlogProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-<<<<<<< HEAD
     fetchPosts();
   }, []);
 
@@ -72,187 +42,111 @@ export const BlogProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
       if (error) throw error;
       setPosts(data || []);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+    } catch (err: any) {
+      setError(err.message);
+      toast.error('Failed to fetch posts');
     } finally {
       setLoading(false);
     }
   };
 
-  const addPost = async (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>) => {
+  const createPost = async (post: Omit<BlogPost, 'id' | 'created_at' | 'updated_at'>) => {
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('blog_posts')
-        .insert([{ ...post, created_at: new Date().toISOString(), updated_at: new Date().toISOString() }]);
+        .insert([post])
+        .select()
+        .single();
 
       if (error) throw error;
-      await fetchPosts();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-=======
-    const fetchPosts = async () => {
-      try {
-        const postsQuery = query(collection(db, 'posts'), orderBy('date', 'desc'));
-        const querySnapshot = await getDocs(postsQuery);
-        const fetchedPosts = querySnapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as BlogPost[];
-        setPosts(fetchedPosts);
-      } catch (err) {
-        setError('Failed to fetch posts');
-        console.error('Error fetching posts:', err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPosts();
-  }, []);
-
-  const uploadImage = async (file: File): Promise<string> => {
-    const storageRef = ref(storage, `blog-images/${Date.now()}-${file.name}`);
-    await uploadBytes(storageRef, file);
-    return getDownloadURL(storageRef);
-  };
-
-  const addPost = async (post: Omit<BlogPost, 'id' | 'date'>, imageFile?: File) => {
-    try {
-      let imageUrl = post.image;
-      if (imageFile) {
-        imageUrl = await uploadImage(imageFile);
-      }
-
-      const newPost = {
-        ...post,
-        date: Timestamp.now().toISOString(),
-      };
-
-      const docRef = await addDoc(collection(db, 'posts'), newPost);
-      setPosts(prevPosts => [...prevPosts, { ...newPost, id: docRef.id }]);
-    } catch (err) {
-      setError('Failed to add post');
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+      setPosts((prev) => [data, ...prev]);
+      toast.success('Post created successfully');
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to create post');
       throw err;
     }
   };
 
-<<<<<<< HEAD
   const updatePost = async (id: string, post: Partial<BlogPost>) => {
     try {
-      const { error } = await supabase
+      const { data, error } = await supabase
         .from('blog_posts')
-        .update({ ...post, updated_at: new Date().toISOString() })
-        .eq('id', id);
+        .update(post)
+        .eq('id', id)
+        .select()
+        .single();
 
       if (error) throw error;
-      await fetchPosts();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-=======
-  const updatePost = async (id: string, post: Partial<BlogPost>, imageFile?: File) => {
-    try {
-      let imageUrl = post.image;
-      if (imageFile) {
-        imageUrl = await uploadImage(imageFile);
-      }
-
-      const postRef = doc(db, 'posts', id);
-      const updatedPost = {
-        ...post,
-        image: imageUrl,
-        date: Timestamp.now().toISOString(),
-      };
-
-      await updateDoc(postRef, updatedPost);
-      setPosts(prevPosts =>
-        prevPosts.map(p => (p.id === id ? { ...p, ...updatedPost } : p))
-      );
-    } catch (err) {
-      setError('Failed to update post');
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+      setPosts((prev) => prev.map((p) => (p.id === id ? data : p)));
+      toast.success('Post updated successfully');
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to update post');
       throw err;
     }
   };
 
   const deletePost = async (id: string) => {
     try {
-<<<<<<< HEAD
       const { error } = await supabase
         .from('blog_posts')
         .delete()
         .eq('id', id);
 
       if (error) throw error;
-      await fetchPosts();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-=======
-      await deleteDoc(doc(db, 'posts', id));
-      setPosts(prevPosts => prevPosts.filter(post => post.id !== id));
-    } catch (err) {
-      setError('Failed to delete post');
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+      setPosts((prev) => prev.filter((p) => p.id !== id));
+      toast.success('Post deleted successfully');
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to delete post');
       throw err;
     }
   };
 
-<<<<<<< HEAD
-  const getPost = async (slug: string): Promise<BlogPost | null> => {
+  const publishPost = async (id: string) => {
     try {
       const { data, error } = await supabase
         .from('blog_posts')
-        .select('*')
-        .eq('slug', slug)
+        .update({ published: true })
+        .eq('id', id)
+        .select()
         .single();
 
       if (error) throw error;
-      return data;
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
-      return null;
+      setPosts((prev) => prev.map((p) => (p.id === id ? data : p)));
+      toast.success('Post published successfully');
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to publish post');
+      throw err;
     }
   };
 
-  return (
-    <BlogContext.Provider value={{ posts, loading, error, addPost, updatePost, deletePost, getPost }}>
-      {children}
-    </BlogContext.Provider>
-  );
-}
+  const unpublishPost = async (id: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('blog_posts')
+        .update({ published: false })
+        .eq('id', id)
+        .select()
+        .single();
 
-export function useBlog() {
-=======
-  const getPostBySlug = (slug: string) => {
-    return posts.find(post => post.slug === slug);
+      if (error) throw error;
+      setPosts((prev) => prev.map((p) => (p.id === id ? data : p)));
+      toast.success('Post unpublished successfully');
+    } catch (err: any) {
+      toast.error(err.message || 'Failed to unpublish post');
+      throw err;
+    }
   };
 
-  return (
-    <BlogContext.Provider
-      value={{
-        posts,
-        loading,
-        error,
-        addPost,
-        updatePost,
-        deletePost,
-        getPostBySlug,
-      }}
-    >
-      {children}
-    </BlogContext.Provider>
-  );
-};
+  const value = {
+    posts,
+    loading,
+    error,
+    createPost,
+    updatePost,
+    deletePost,
+    publishPost,
+    unpublishPost,
+  };
 
-export const useBlog = () => {
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
-  const context = useContext(BlogContext);
-  if (context === undefined) {
-    throw new Error('useBlog must be used within a BlogProvider');
-  }
-  return context;
-<<<<<<< HEAD
-} 
-=======
-}; 
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+  return <BlogContext.Provider value={value}>{children}</BlogContext.Provider>;
+};
