@@ -50,7 +50,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Link 
-              to="/contact" 
+              to="/contact"
               className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light transition-colors"
               aria-label="Get started with our services"
             >
@@ -97,7 +97,7 @@ const Navbar = () => {
                 </Link>
               ))}
               <Link 
-                to="/contact" 
+                to="/contact"
                 className="w-full mt-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light transition-colors block text-center"
                 aria-label="Get started with our services"
                 role="menuitem"
