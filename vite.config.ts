@@ -18,6 +18,11 @@ export default defineConfig({
     },
     sourcemap: false,
     minify: 'terser',
-    outDir: 'dist'
+    outDir: 'dist',
+    target: 'es2015'
+  },
+  server: {
+    port: 3000,
+    strictPort: true
   }
 });
