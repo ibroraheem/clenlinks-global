@@ -1,12 +1,11 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { blogService } from '../services/blogService';
-import { BlogPost } from '../types/blog';
-import SEO from './SEO';
+import { BlogPost as BlogPostType } from '../types/blog';
+import { Helmet } from 'react-helmet-async';
 
-export default function Blog() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
+const Blog = () => {
+  const [posts, setPosts] = useState<BlogPostType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -16,7 +15,8 @@ export default function Blog() {
         const data = await blogService.getPublishedPosts();
         setPosts(data);
       } catch (err) {
-        setError('Failed to load blog posts');
+        setError('Failed to load blog posts. Please try again later.');
+        console.error('Error fetching posts:', err);
       } finally {
         setLoading(false);
       }
@@ -27,15 +27,18 @@ export default function Blog() {
 
   if (loading) {
     return (
-      <div className="min-h-screen pt-16">
+      <div className="pt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="animate-pulse space-y-8">
-            {[...Array(3)].map((_, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <div className="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-white rounded-lg shadow-md p-6">
+                <div className="h-48 bg-gray-200 rounded-lg mb-4"></div>
+                <div className="h-6 bg-gray-200 rounded w-3/4 mb-4"></div>
                 <div className="h-4 bg-gray-200 rounded w-1/2 mb-4"></div>
-                <div className="h-48 bg-gray-200 rounded mb-4"></div>
-                <div className="h-4 bg-gray-200 rounded w-full"></div>
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-200 rounded"></div>
+                  <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                </div>
               </div>
             ))}
           </div>
@@ -46,10 +49,10 @@ export default function Blog() {
 
   if (error) {
     return (
-      <div className="min-h-screen pt-16">
+      <div className="pt-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="bg-red-50 border border-red-200 rounded-md p-4">
-            <p className="text-red-700">{error}</p>
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-red-700">
+            {error}
           </div>
         </div>
       </div>
@@ -57,213 +60,92 @@ export default function Blog() {
   }
 
   return (
-    <div className="min-h-screen pt-16">
-      <SEO 
-        title="Blog"
-        description="Stay updated with the latest news, tips, and insights about visas and immigration"
-      />
+    <div className="pt-16">
+      <Helmet>
+        <title>Blog - Clenlinks Global</title>
+        <meta name="description" content="Stay updated with the latest news, tips, and insights about visas, immigration, and international education." />
+      </Helmet>
 
       {/* Hero Section */}
       <div className="bg-blue-700 text-white py-20">
-=======
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Calendar, Clock, User } from 'lucide-react';
-import { useBlog } from '../context/BlogContext';
-
-// Blog post type definition
-interface BlogPost {
-  id: string;
-  title: string;
-  excerpt: string;
-  content: string;
-  author: string;
-  date: string;
-  readTime: string;
-  image: string;
-  category: string;
-  slug: string;
-}
-
-// Sample blog posts data
-const blogPosts: BlogPost[] = [
-  {
-    id: '1',
-    title: 'Top 10 Universities in Canada for International Students',
-    excerpt: 'Discover the best Canadian universities that offer excellent programs and support for international students.',
-    content: 'Full content here...',
-    author: 'John Doe',
-    date: '2024-03-20',
-    readTime: '5 min read',
-    image: 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg',
-    category: 'Study Abroad',
-    slug: 'top-10-universities-canada'
-  },
-  {
-    id: '2',
-    title: 'Essential Documents for Student Visa Application',
-    excerpt: 'A comprehensive guide to the documents you need to prepare for your student visa application.',
-    content: 'Full content here...',
-    author: 'Jane Smith',
-    date: '2024-03-18',
-    readTime: '4 min read',
-    image: 'https://images.pexels.com/photos/5905708/pexels-photo-5905708.jpeg',
-    category: 'Visa Guide',
-    slug: 'student-visa-documents'
-  },
-  {
-    id: '3',
-    title: 'How to Choose the Right Study Abroad Program',
-    excerpt: 'Learn the key factors to consider when selecting a study abroad program that matches your goals.',
-    content: 'Full content here...',
-    author: 'Mike Johnson',
-    date: '2024-03-15',
-    readTime: '6 min read',
-    image: 'https://images.pexels.com/photos/267885/pexels-photo-267885.jpeg',
-    category: 'Study Abroad',
-    slug: 'choosing-study-abroad-program'
-  }
-];
-
-const Blog = () => {
-  const { posts } = useBlog();
-
-  return (
-    <div className="pt-20 pb-16">
-      {/* Hero Section */}
-      <div className="bg-blue-700 text-white py-16">
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-6">
             Our Blog
           </h1>
           <p className="text-xl text-center max-w-3xl mx-auto">
-<<<<<<< HEAD
-            Discover insights, news, and expert perspectives on education, travel, and immigration
-=======
-            Stay updated with the latest insights, tips, and guides for international education and travel
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+            Stay updated with the latest news, tips, and insights about visas,
+            immigration, and international education
           </p>
         </div>
       </div>
 
       {/* Blog Posts Grid */}
-<<<<<<< HEAD
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <article key={post.id} className="bg-white rounded-lg shadow-md overflow-hidden">
-              {post.featured_image && (
-                <div className="aspect-w-16 aspect-h-9">
-                  <img
-                    src={post.featured_image}
-                    alt={post.title}
-                    className="w-full h-48 object-cover"
-                  />
-                </div>
-              )}
-              <div className="p-6">
-                <div className="flex items-center text-sm text-gray-500 mb-2">
-                  <time dateTime={post.created_at}>
-                    {new Date(post.created_at).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric'
-                    })}
-                  </time>
-                  {post.category && (
-                    <>
-                      <span className="mx-2">•</span>
-                      <span className="text-blue-600">{post.category}</span>
-                    </>
-                  )}
-                </div>
-                <h2 className="text-xl font-semibold text-gray-900 mb-2">
-                  <Link to={`/blog/${post.slug}`} className="hover:text-blue-600">
-                    {post.title}
-                  </Link>
-                </h2>
-                <p className="text-gray-600 mb-4 line-clamp-3">
-                  {post.excerpt || post.content.substring(0, 150) + '...'}
-                </p>
-                <Link
-                  to={`/blog/${post.slug}`}
-                  className="text-blue-600 font-semibold hover:text-blue-700"
-                >
-                  Read More →
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
-
-        {posts.length === 0 && (
+        {posts.length === 0 ? (
           <div className="text-center py-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">No Posts Yet</h2>
-            <p className="text-gray-600">
-              Check back soon for new articles and insights.
-            </p>
+            <p className="text-gray-600">No blog posts available at the moment.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {posts.map((post) => (
+              <article
+                key={post.id}
+                className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
+              >
+                {post.featured_image && (
+                  <div className="aspect-w-16 aspect-h-9">
+                    <img
+                      src={post.featured_image}
+                      alt={post.title}
+                      className="w-full h-48 object-cover"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <div className="flex items-center text-sm text-gray-500 mb-2">
+                    <time dateTime={post.created_at}>
+                      {new Date(post.created_at).toLocaleDateString()}
+                    </time>
+                    {post.category && (
+                      <>
+                        <span className="mx-2">•</span>
+                        <span className="text-blue-600">{post.category}</span>
+                      </>
+                    )}
+                  </div>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                    {post.title}
+                  </h2>
+                  <p className="text-gray-600 mb-4 line-clamp-3">
+                    {post.excerpt || post.content.substring(0, 150) + '...'}
+                  </p>
+                  <Link
+                    to={`/blog/${post.slug}`}
+                    className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
+                  >
+                    Read More
+                    <svg
+                      className="w-4 h-4 ml-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </div>
+              </article>
+            ))}
           </div>
         )}
       </div>
     </div>
   );
-} 
-=======
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post) => (
-            <article 
-              key={post.id}
-              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
-            >
-              <Link to={`/blog/${post.slug}`}>
-                <div className="relative h-48">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
-                      {post.category}
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h2 className="text-xl font-bold text-gray-900 mb-3 hover:text-blue-600 transition-colors">
-                    {post.title}
-                  </h2>
-                  <p className="text-gray-600 mb-4">
-                    {post.excerpt}
-                  </p>
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <div className="flex items-center">
-                      <User className="w-4 h-4 mr-1" />
-                      {post.author}
-                    </div>
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {new Date(post.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {post.readTime}
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            </article>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
 };
 
-export default Blog; 
->>>>>>> a8596c64a14df697252167c875cbf49e841c1b60
+export default Blog;
