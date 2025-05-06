@@ -34,24 +34,30 @@ CREATE POLICY "Allow public read access to published posts"
     ON blog_posts FOR SELECT
     USING (published = true);
 
+-- Allow authenticated users to read all posts
+CREATE POLICY "Allow authenticated users to read all posts"
+    ON blog_posts FOR SELECT
+    TO authenticated
+    USING (true);
+
 -- Allow authenticated users to create posts
 CREATE POLICY "Allow authenticated users to create posts"
     ON blog_posts FOR INSERT
     TO authenticated
     WITH CHECK (true);
 
--- Allow authenticated users to update their own posts
+-- Allow authenticated users to update any post
 CREATE POLICY "Allow authenticated users to update posts"
     ON blog_posts FOR UPDATE
     TO authenticated
-    USING (auth.uid() = id)
-    WITH CHECK (auth.uid() = id);
+    USING (true)
+    WITH CHECK (true);
 
--- Allow authenticated users to delete their own posts
+-- Allow authenticated users to delete any post
 CREATE POLICY "Allow authenticated users to delete posts"
     ON blog_posts FOR DELETE
     TO authenticated
-    USING (auth.uid() = id);
+    USING (true);
 
 -- Create function to automatically update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at_column()

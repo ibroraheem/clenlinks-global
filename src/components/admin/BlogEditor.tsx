@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { blogService } from '../../services/blogService';
 import { BlogPost, CreateBlogPostInput } from '../../types/blog';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import ImageUpload from './ImageUpload';
 
 export default function BlogEditor() {
@@ -17,7 +17,7 @@ export default function BlogEditor() {
     content: '',
     excerpt: '',
     featured_image: '',
-    author: '',
+    author: user?.email || '',
     category: '',
     published: false,
     meta_title: '',
@@ -28,8 +28,13 @@ export default function BlogEditor() {
   useEffect(() => {
     if (id) {
       fetchPost();
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        author: user?.email || ''
+      }));
     }
-  }, [id]);
+  }, [id, user]);
 
   const fetchPost = async () => {
     try {
