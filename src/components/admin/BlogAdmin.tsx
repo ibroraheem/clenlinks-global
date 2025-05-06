@@ -158,65 +158,89 @@ const BlogAdmin = () => {
         </button>
       </div>
 
-      <div className="grid gap-6">
-        {posts.map((post) => (
-          <div
-            key={post.id}
-            className="bg-white rounded-lg shadow-md p-6 flex justify-between items-start"
+      {posts.length === 0 ? (
+        <div className="bg-white rounded-lg shadow-md p-8 text-center">
+          <p className="text-gray-600 mb-4">No blog posts available.</p>
+          <button
+            onClick={() => {
+              setEditingPost(null);
+              setFormData({
+                title: '',
+                content: '',
+                excerpt: '',
+                category: '',
+                featured_image: '',
+              });
+              setIsModalOpen(true);
+            }}
+            className="text-blue-600 hover:text-blue-800 font-medium"
           >
-            <div>
-              <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
-              <p className="text-gray-600 mb-4">
-                {post.excerpt || post.content.substring(0, 150)}...
-              </p>
-              <div className="flex items-center space-x-4 text-sm text-gray-500">
-                <span>
-                  {new Date(post.created_at).toLocaleDateString()}
-                </span>
-                <span>•</span>
-                <span>{post.category || 'Uncategorized'}</span>
-                <span>•</span>
-                <span
-                  className={`${
-                    post.published ? 'text-green-600' : 'text-yellow-600'
-                  }`}
-                >
-                  {post.published ? 'Published' : 'Draft'}
-                </span>
+            Create your first post
+          </button>
+        </div>
+      ) : (
+        <div className="space-y-6">
+          {posts.map((post) => (
+            <div
+              key={post.id}
+              className="bg-white rounded-lg shadow-md p-6"
+            >
+              <div className="flex justify-between items-start">
+                <div className="flex-1">
+                  <h2 className="text-xl font-semibold mb-2">{post.title}</h2>
+                  <p className="text-gray-600 mb-4">
+                    {post.excerpt || post.content.substring(0, 150)}...
+                  </p>
+                  <div className="flex items-center space-x-4 text-sm text-gray-500">
+                    <span>
+                      {new Date(post.created_at).toLocaleDateString()}
+                    </span>
+                    <span>•</span>
+                    <span>{post.category || 'Uncategorized'}</span>
+                    <span>•</span>
+                    <span
+                      className={`${
+                        post.published ? 'text-green-600' : 'text-yellow-600'
+                      }`}
+                    >
+                      {post.published ? 'Published' : 'Draft'}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex space-x-4 ml-4">
+                  <button
+                    onClick={() => handleEdit(post)}
+                    className="text-blue-600 hover:text-blue-800"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => handleDelete(post.id)}
+                    className="text-red-600 hover:text-red-800"
+                  >
+                    Delete
+                  </button>
+                  {post.published ? (
+                    <button
+                      onClick={() => handleUnpublish(post.id)}
+                      className="text-yellow-600 hover:text-yellow-800"
+                    >
+                      Unpublish
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handlePublish(post.id)}
+                      className="text-green-600 hover:text-green-800"
+                    >
+                      Publish
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
-            <div className="flex space-x-2">
-              <button
-                onClick={() => handleEdit(post)}
-                className="text-blue-600 hover:text-blue-800"
-              >
-                Edit
-              </button>
-              <button
-                onClick={() => handleDelete(post.id)}
-                className="text-red-600 hover:text-red-800"
-              >
-                Delete
-              </button>
-              {post.published ? (
-                <button
-                  onClick={() => handleUnpublish(post.id)}
-                  className="text-yellow-600 hover:text-yellow-800"
-                >
-                  Unpublish
-                </button>
-              ) : (
-                <button
-                  onClick={() => handlePublish(post.id)}
-                  className="text-green-600 hover:text-green-800"
-                >
-                  Publish
-                </button>
-              )}
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
 
       {isModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
@@ -282,30 +306,32 @@ const BlogAdmin = () => {
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700">
-                    Featured Image
+                    Featured Image URL
                   </label>
                   <input
-                    type="file"
-                    onChange={handleImageChange}
-                    className="mt-1 block w-full"
-                    accept="image/*"
+                    type="text"
+                    value={formData.featured_image}
+                    onChange={(e) =>
+                      setFormData({ ...formData, featured_image: e.target.value })
+                    }
+                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
                   />
                 </div>
-              </div>
-              <div className="mt-6 flex justify-end space-x-3">
-                <button
-                  type="button"
-                  onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50"
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
-                >
-                  {editingPost ? 'Update' : 'Create'}
-                </button>
+                <div className="flex justify-end space-x-4">
+                  <button
+                    type="button"
+                    onClick={() => setIsModalOpen(false)}
+                    className="px-4 py-2 text-gray-700 hover:text-gray-900"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                  >
+                    {editingPost ? 'Update Post' : 'Create Post'}
+                  </button>
+                </div>
               </div>
             </form>
           </div>

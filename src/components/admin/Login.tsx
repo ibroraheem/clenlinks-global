@@ -17,6 +17,8 @@ const Login = () => {
 
     try {
       await signIn(email, password);
+      // Wait a bit for the admin status to be checked
+      await new Promise(resolve => setTimeout(resolve, 1000));
       toast.success('Logged in successfully!');
       navigate('/admin');
     } catch (error: any) {
