@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { blogService } from '../../services/blogService';
 import { BlogPost, CreateBlogPostInput } from '../../types/blog';
 import { useAuth } from '../../contexts/AuthContext';
+import ImageUpload from './ImageUpload';
 
 export default function BlogEditor() {
   const { id } = useParams<{ id: string }>();
@@ -86,6 +87,13 @@ export default function BlogEditor() {
       title,
       slug: blogService.generateSlug(title),
       meta_title: prev.meta_title || title
+    }));
+  };
+
+  const handleImageUploaded = (url: string) => {
+    setFormData(prev => ({
+      ...prev,
+      featured_image: url
     }));
   };
 
@@ -196,15 +204,13 @@ export default function BlogEditor() {
           </div>
 
           <div>
-            <label htmlFor="featured_image" className="block text-sm font-medium text-gray-700">
-              Featured Image URL
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Featured Image
             </label>
-            <input
-              type="text"
-              id="featured_image"
-              value={formData.featured_image}
-              onChange={(e) => setFormData(prev => ({ ...prev, featured_image: e.target.value }))}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            <ImageUpload
+              onImageUploaded={handleImageUploaded}
+              currentImage={formData.featured_image}
+              folder="blog"
             />
           </div>
 
