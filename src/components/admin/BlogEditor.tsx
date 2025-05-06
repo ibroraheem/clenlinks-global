@@ -3,7 +3,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { blogService } from '../../services/blogService';
 import { BlogPost, CreateBlogPostInput } from '../../types/blog';
 import { useAuth } from '../../contexts/AuthContext';
-import ImageUpload from './ImageUpload';
 
 export default function BlogEditor() {
   const { id } = useParams<{ id: string }>();
