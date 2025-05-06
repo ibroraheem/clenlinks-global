@@ -165,17 +165,6 @@ export default function BlogEditor() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Featured Image
-            </label>
-            <ImageUpload
-              onImageUploaded={(url) => setFormData(prev => ({ ...prev, featured_image: url }))}
-              currentImage={formData.featured_image}
-              folder="blog/featured"
-            />
-          </div>
-
-          <div>
             <label htmlFor="author" className="block text-sm font-medium text-gray-700">
               Author
             </label>
@@ -202,48 +191,17 @@ export default function BlogEditor() {
             />
           </div>
 
-          {/* SEO Section */}
-          <div className="border-t border-gray-200 pt-6">
-            <h2 className="text-lg font-medium text-gray-900 mb-4">SEO Settings</h2>
-            
-            <div className="space-y-4">
-              <div>
-                <label htmlFor="meta_title" className="block text-sm font-medium text-gray-700">
-                  Meta Title
-                </label>
-                <input
-                  type="text"
-                  id="meta_title"
-                  value={formData.meta_title}
-                  onChange={(e) => setFormData(prev => ({ ...prev, meta_title: e.target.value }))}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="meta_description" className="block text-sm font-medium text-gray-700">
-                  Meta Description
-                </label>
-                <textarea
-                  id="meta_description"
-                  value={formData.meta_description}
-                  onChange={(e) => setFormData(prev => ({ ...prev, meta_description: e.target.value }))}
-                  rows={3}
-                  className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700">
-                  Open Graph Image
-                </label>
-                <ImageUpload
-                  onImageUploaded={(url) => setFormData(prev => ({ ...prev, og_image: url }))}
-                  currentImage={formData.og_image}
-                  folder="blog/og"
-                />
-              </div>
-            </div>
+          <div>
+            <label htmlFor="featured_image" className="block text-sm font-medium text-gray-700">
+              Featured Image URL
+            </label>
+            <input
+              type="text"
+              id="featured_image"
+              value={formData.featured_image}
+              onChange={(e) => setFormData(prev => ({ ...prev, featured_image: e.target.value }))}
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+            />
           </div>
 
           <div className="flex items-center">
