@@ -14,11 +14,20 @@ const Contact = () => {
     try {
       if (!form.current) return;
 
+      // Check if EmailJS credentials are configured
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error("EmailJS configuration is missing. Please check your environment variables.");
+      }
+
       const result = await emailjs.sendForm(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID!,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID!,
+        serviceId,
+        templateId,
         form.current,
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY!
+        publicKey
       );
 
       if (result.status === 200) {
@@ -29,7 +38,11 @@ const Contact = () => {
       }
     } catch (error) {
       console.error("Error sending email:", error);
-      toast.error("Failed to send message. Please try again or contact us directly.");
+      toast.error(
+        error instanceof Error 
+          ? error.message 
+          : "Failed to send message. Please try again or contact us directly."
+      );
     } finally {
       setIsSubmitting(false);
     }

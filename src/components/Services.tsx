@@ -83,7 +83,7 @@ const Services = () => {
                   <div className="text-blue-600 mb-4">
                     <Icon className="h-12 w-12" />
                   </div>
-                  <h3 className="text-2xl font-semibold mb-4">{service.title}</h3>
+                  <h3 className="text-2xl font-semibold text-gray-900 mb-4">{service.title}</h3>
                   <p className="text-gray-600 mb-6">{service.description}</p>
                   <button className="text-blue-600 font-semibold hover:text-blue-700">
                     {service.buttonText} →
