@@ -22,7 +22,7 @@ import BlogEditor from './components/admin/BlogEditor';
 import ResetPassword from './components/admin/ResetPassword';
 import { AuthProvider } from './contexts/AuthContext';
 import { BlogProvider } from './context/BlogContext';
-import PrivateRoute from './components/PrivateRoute';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -52,33 +52,33 @@ function App() {
               <Route
                 path="/admin"
                 element={
-                  <PrivateRoute>
+                  <ProtectedRoute requireAdmin>
                     <Dashboard />
-                  </PrivateRoute>
+                  </ProtectedRoute>
                 }
               />
               <Route
                 path="/admin/blog"
                 element={
-                  <PrivateRoute>
+                  <ProtectedRoute requireAdmin>
                     <BlogAdmin />
-                  </PrivateRoute>
+                  </ProtectedRoute>
                 }
               />
               <Route
                 path="/admin/blog/new"
                 element={
-                  <PrivateRoute>
+                  <ProtectedRoute requireAdmin>
                     <BlogEditor />
-                  </PrivateRoute>
+                  </ProtectedRoute>
                 }
               />
               <Route
                 path="/admin/blog/edit/:id"
                 element={
-                  <PrivateRoute>
+                  <ProtectedRoute requireAdmin>
                     <BlogEditor />
-                  </PrivateRoute>
+                  </ProtectedRoute>
                 }
               />
             </Routes>
