@@ -16,9 +16,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const { error } = await signIn(email, password);
-      if (error) throw error;
-      
+      await signIn(email, password);
       toast.success('Logged in successfully!');
       navigate('/admin');
     } catch (error: any) {

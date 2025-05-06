@@ -17,7 +17,8 @@ const BlogPost = () => {
       try {
         const data = await blogService.getPostBySlug(slug);
         if (!data) {
-          throw new Error('Post not found');
+          setError('Post not found');
+          return;
         }
         setPost(data);
       } catch (err) {
