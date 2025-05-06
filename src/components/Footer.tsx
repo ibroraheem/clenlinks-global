@@ -2,7 +2,6 @@ import React from "react";
 import {
   Facebook,
   Instagram,
-  Linkedin,
   Mail,
   MapPin,
   Phone,
@@ -74,14 +73,34 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Follow Us</h4>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a 
+                href="https://web.facebook.com/people/Clenlinks-Global-Service/61575335305513/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white"
+                aria-label="Follow us on Facebook"
+              >
                 <Facebook className="h-6 w-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white">
+              <a 
+                href="https://www.instagram.com/clen_links/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white"
+                aria-label="Follow us on Instagram"
+              >
                 <Instagram className="h-6 w-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white">
-                <Linkedin className="h-6 w-6" />
+              <a 
+                href="https://x.com/clenlinkstudy" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-gray-400 hover:text-white"
+                aria-label="Follow us on X (Twitter)"
+              >
+                <svg className="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
               </a>
             </div>
           </div>
