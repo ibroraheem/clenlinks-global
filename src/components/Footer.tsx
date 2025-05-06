@@ -110,6 +110,13 @@ const Footer = () => {
           <p className="text-gray-400">
             © {new Date().getFullYear()} Clenlinks Global Services. All rights
             reserved.
+            <a 
+              href="/admin/login" 
+              className="opacity-0 hover:opacity-100 text-gray-500 hover:text-white ml-2 transition-opacity duration-300"
+              aria-label="Admin Login"
+            >
+              Admin
+            </a>
           </p>
         </div>
       </div>
