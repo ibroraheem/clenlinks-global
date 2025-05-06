@@ -17,20 +17,6 @@ const Login = () => {
 
     try {
       await signIn(email, password);
-      // Wait for the admin status to be checked
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // Check if user is admin before redirecting
-      const { data: { user } } = await supabase.auth.getUser();
-      if (!user) {
-        throw new Error('Authentication failed');
-      }
-
-      const { data: isAdmin } = await supabase.rpc('is_admin');
-      if (!isAdmin) {
-        throw new Error('Access denied. Admin privileges required.');
-      }
-
       toast.success('Logged in successfully!');
       navigate('/admin');
     } catch (error: any) {
