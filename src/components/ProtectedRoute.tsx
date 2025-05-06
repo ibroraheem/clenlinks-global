@@ -4,11 +4,10 @@ import { useAuth } from '../contexts/AuthContext';
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  requireAdmin?: boolean;
 }
 
-export default function ProtectedRoute({ children, requireAdmin = false }: ProtectedRouteProps) {
-  const { user, loading, isAdmin } = useAuth();
+export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+  const { user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
@@ -22,11 +21,6 @@ export default function ProtectedRoute({ children, requireAdmin = false }: Prote
   if (!user) {
     // Redirect to login page but save the attempted url
     return <Navigate to="/admin/login" state={{ from: location }} replace />;
-  }
-
-  if (requireAdmin && !isAdmin) {
-    // Redirect to home page if user is not an admin
-    return <Navigate to="/" replace />;
   }
 
   return <>{children}</>;
