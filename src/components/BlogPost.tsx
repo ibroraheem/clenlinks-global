@@ -64,7 +64,7 @@ const BlogPost = () => {
               className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
             >
               <svg
-                className="w-4 h-4 mr-1"
+                className="h-8 w-8"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ const BlogPost = () => {
             className="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center"
           >
             <svg
-              className="w-4 h-4 mr-1"
+              className="h-8 w-8"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

@@ -1,3 +1,24 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Define the new color themes */
+:root {
+  --color-primary: #FFFFFF; /* White for backgrounds */
+  --color-secondary: #FBBF24; /* Bright yellow/gold for CTA buttons, icons, and hover effects */
+  --color-accent: #10B981; /* Emerald green for accents */
+  --color-text: #333333; /* Dark charcoal for body text and section headings */
+  --color-background: #FFFFFF; /* White */
+}
+
+/* Apply the new color themes to Tailwind classes */
+@layer utilities {
+  .bg-primary { background-color: var(--color-primary); }
+  .text-primary { color: var(--color-primary); }
+  .bg-secondary { background-color: var(--color-secondary); }
+  .text-secondary { color: var(--color-secondary); }
+  .bg-accent { background-color: var(--color-accent); }
+  .text-accent { color: var(--color-accent); }
+  .text-body { color: var(--color-text); }
+  .bg-body { background-color: var(--color-background); }
+}

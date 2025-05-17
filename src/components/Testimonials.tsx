@@ -47,7 +47,7 @@ const Testimonials = () => {
             Ready to make your global educational dreams come true or start your next adventure?
             Clenlinks Global is here to guide you every step of the way.
           </p>
-          <button className="bg-blue-600 text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-blue-700 transition-colors">
+          <button className="bg-secondary text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-accent transition-colors">
             Get Started
           </button>
         </div>

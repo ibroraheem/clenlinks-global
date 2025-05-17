@@ -164,7 +164,7 @@ const ServicesPage = () => {
             </p>
             <button 
               onClick={() => handleWhatsAppClick("Hello! I'm ready to take the first step with Clenlinks Global. Can you help me get started?")}
-              className="bg-white text-blue-700 px-8 py-3 rounded-md text-lg font-semibold hover:bg-blue-50 transition-colors"
+              className="bg-secondary text-white px-8 py-3 rounded-md text-lg font-semibold hover:bg-accent transition-colors"
             >
               Get Started Now
             </button>

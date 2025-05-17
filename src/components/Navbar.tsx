@@ -51,7 +51,7 @@ const Navbar = () => {
             ))}
             <Link 
               to="/contact"
-              className="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light transition-colors"
+              className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-accent transition-colors"
               aria-label="Get started with our services"
             >
               Get Started
@@ -67,7 +67,7 @@ const Navbar = () => {
               aria-controls="mobile-menu"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? <X className="h-8 w-8" /> : <Menu className="h-8 w-8" />}
             </button>
           </div>
         </div>
@@ -98,7 +98,7 @@ const Navbar = () => {
               ))}
               <Link 
                 to="/contact"
-                className="w-full mt-2 bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-light transition-colors block text-center"
+                className="w-full mt-2 bg-secondary text-white px-4 py-2 rounded-md hover:bg-accent transition-colors block text-center"
                 aria-label="Get started with our services"
                 role="menuitem"
                 onClick={() => setIsOpen(false)}

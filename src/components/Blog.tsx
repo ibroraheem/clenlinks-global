@@ -125,7 +125,7 @@ const Blog = () => {
                   >
                     Read More
                     <svg
-                      className="w-4 h-4 ml-1"
+                      className="h-8 w-8"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
